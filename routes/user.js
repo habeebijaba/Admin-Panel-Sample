@@ -88,12 +88,20 @@ router.post('/login', function (req, res, next) {
   })
 })
 router.get('/signup', function (req, res, next) {
-  res.render('user/signup', {})
+  res.render('user/signup', {signupError:req.session.signupError})
+  req.session.signupError=false
 })
 router.post('/signup', function (req, res, next) {
   // console.log(req.body);
   userHelper.signUp(req.body).then((response) => {
+    console.log(response);
+    if(response){
     res.redirect('/login')
+  }else{
+    req.session.signupError=true
+    res.redirect('/signup')
+    
+  }
   })
 
 })

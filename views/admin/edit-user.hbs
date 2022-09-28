@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row pt-5">
+
+        {{!-- same methods will work ,add users=edit users --}}
+
+        <div class="col-md-8">
+            <a href="/admin/view-users" class="btn btn-success mt-5 ml-auto">Admin panel</a>
+            <form action="/admin/add-users" method="post">
+            
+                <h1 class="text-center">Edit users</h1>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Name</label>
+                    <input type="text" name="name" class="form-control " required="true" id="exampleInputEmail1" value="{{user.name}}"
+                        aria-describedby="emailHelp" placeholder="Enter Name">
+
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" name="email" class="form-control " required="true" id="exampleInputEmail1"value='{{user.email}}'
+                        aria-describedby="emailHelp" placeholder="Enter email">
+
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" name="password" class="form-control" required="true"
+                        id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary ">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

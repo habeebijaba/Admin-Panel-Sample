@@ -63,7 +63,8 @@ module.exports = {
                 resolve(response)
             })
         })
-    }
+    },
+    
     
 
 }

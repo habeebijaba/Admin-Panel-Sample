@@ -8,6 +8,8 @@
                     <th scope="col">Customer Id</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Edit-User</th>
+                    <th scope="col">Delete-User</th>
                 </tr>
             </thead>
             <tbody>
@@ -16,8 +18,8 @@
                     <th scope="row">{{_id}}</th>
                     <td>{{this.name}}</td>
                     <td>{{this.email}}</td>
-                    <td><a href="" onclick="" class="btn btn-primary">Edit User</a></td>
-                    <td><a href="/admin/delete-product/{{this.email}}" onclick="return confirm('delete user {{this.name}}')" class="btn btn-danger">Delete User</a></td>
+                    <td><a href="/admin/edit-user/{{this.email}}" onclick="" class="btn btn-primary">Edit User</a></td>
+                    <td><a href="/admin/delete-user/{{this.email}}" onclick="return confirm('delete user {{this.name}}')" class="btn btn-danger">Delete User</a></td>
                 </tr>
                 {{/each}}
             </tbody>
