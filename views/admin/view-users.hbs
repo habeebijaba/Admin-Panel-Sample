@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row ">
+        <a class="btn mt-5 btn-success ml-auto" href="/admin/add-users">Add Users</a>
+    
+        <table class="table mt-5 ">
+            <thead>
+                <tr>
+                    <th scope="col">Customer Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each allUsers}}
+                <tr>
+                    <th scope="row">{{_id}}</th>
+                    <td>{{this.name}}</td>
+                    <td>{{this.email}}</td>
+                    <td><a href="" onclick="" class="btn btn-primary">Edit User</a></td>
+                    <td><a href="/admin/delete-product/{{this.email}}" onclick="return confirm('delete user {{this.name}}')" class="btn btn-danger">Delete User</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
