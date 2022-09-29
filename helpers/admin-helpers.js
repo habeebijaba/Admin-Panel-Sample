@@ -3,14 +3,22 @@ var bcrypt = require('bcrypt')
 const { response } = require('../app')
 module.exports = {
     addUser: (user) => {
+        let response={}
         return new Promise(async (resolve, reject) => {
+            let userdata=await db.get().collection('users').findOne({email:user.email})
+            if(userdata){
+                console.log("alreadddddd exists");
+                resolve(response.status=false)
+            }else{
             user.password = await bcrypt.hash(user.password, 10)
             db.get().collection('users').insertOne(user).then((req, res) => {
 
                 // passing the success result
-                resolve(user)
+                resolve(response.status=true)
 
             })
+        }
+
 
         })
     },
@@ -21,11 +29,18 @@ module.exports = {
         })
     },
     addAdmin:(data)=>{
+        let response={}
         return new Promise(async(resolve,reject)=>{
+            let admindata=await db.get().collection('admin').findOne({email:data.email})
+            if(admindata){
+                console.log("admin alread exists");
+                resolve(response.status=false)
+            }else{
             data.password=await bcrypt.hash(data.password,10)
             db.get().collection('admin').insertOne(data).then((req,res)=>{
-                resolve(data)
+                resolve(response.status=true)
             })
+        }
 
         })
 
@@ -49,7 +64,7 @@ module.exports = {
                 })
 
             }else{
-                console.log('no user wxists')
+                console.log('no user exists')
                 resolve({status:false})
 
             }

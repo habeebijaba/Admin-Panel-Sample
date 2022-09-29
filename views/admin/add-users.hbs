@@ -6,6 +6,9 @@
             <form action="/admin/add-users" method="post">
             
                 <h1 class="text-center">Add users</h1>
+                {{#if adduserError}}
+                <p class="error text-danger">User alread Exists With Entered Mail Id</p>
+                {{/if}}
                 <div class="form-group">
                     <label for="exampleInputEmail1">Name</label>
                     <input type="text" name="name" class="form-control " required="true" id="exampleInputEmail1"
