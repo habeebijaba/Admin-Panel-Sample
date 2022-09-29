@@ -79,6 +79,30 @@ module.exports = {
             })
         })
     },
+    editUser:(data)=>{
+        console.log(data);
+
+        return new Promise(async(resolve,reject)=>{
+
+
+            // password bcrypt then store..
+
+            data.password = await bcrypt.hash(data.password, 10)
+
+
+            db.get().collection('users').updateOne({email:data.email},{
+                $set:{
+                    name:data.name,
+                    password:data.password
+
+                }
+            }).then((response)=>{
+                console.log(response);
+                resolve()
+
+            })
+        })
+    }
     
     
 

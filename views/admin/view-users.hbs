@@ -1,12 +1,20 @@
+
+{{!-- data table --}}
+    <link src="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+
 <div class="container">
-    <div class="row ">
-        <a class="btn mt-5 btn-success ml-auto" href="/admin/add-users">Add Users</a>
+    <div class="row">
+     <a class="btn mt-5 btn-success ml-auto" href="/admin/add-users">Add Users</a>
         <a class="btn mt-5 btn-success ml-5 " href="/admin/admin-signup">Add Admin</a>
+        </div>
+    <div class="row d-block ">
+       
         
     
-        <table class="table mt-5 ">
+        <table class="table mt-5 " id="viewusers">
             <thead>
                 <tr>
+                    
                     <th scope="col">Customer Id</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
@@ -17,6 +25,7 @@
             <tbody>
                 {{#each allUsers}}
                 <tr>
+                    
                     <th scope="row">{{_id}}</th>
                     <td>{{this.name}}</td>
                     <td>{{this.email}}</td>
@@ -28,3 +37,17 @@
         </table>
     </div>
 </div>
+
+ <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+
+            {{!-- datatable js --}}
+
+        <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+{{!-- data table ajax --}}
+<script>
+    $(document).ready( function () {
+        $.noConflict();
+    $('#viewusers').DataTable();
+} );
+</script> 
