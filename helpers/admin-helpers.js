@@ -85,7 +85,7 @@ module.exports = {
         return new Promise(async(resolve,reject)=>{
 
 
-            // password bcrypt then store..
+            // password bcrypt then store.. 
 
             data.password = await bcrypt.hash(data.password, 10)
 
