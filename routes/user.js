@@ -55,22 +55,22 @@ router.get('/', function (req, res, next) {
       description: "1252 cc 6 Speed Manual engine, and weighs 228 kg",
       image: "https://motoringworld.in/wp-content/uploads/2022/04/Harley-Davidson-Nightster.jpg"
     }]
-    if(user){
-  res.render('user/index', { products, user });
-}else{
-  res.redirect('/login')
-}
+  if (user) {
+    res.render('user/index', { products, user });
+  } else {
+    res.redirect('/login')
+  }
 
 });
 router.get('/login', function (req, res, next) {
-  let user=req.session.user
+  let user = req.session.user
 
-  if(user){
+  if (user) {
     res.redirect('/')
-  }else{
-  res.render('user/login', {loginError:req.session.loginError})
-  req.session.loginError=false
-}
+  } else {
+    res.render('user/login', { loginError: req.session.loginError })
+    req.session.loginError = false
+  }
 
 
 })
@@ -82,32 +82,33 @@ router.post('/login', function (req, res, next) {
       // console.log(req.session);
       res.redirect('/')
     } else {
-      req.session.loginError=true
+      req.session.loginError = true
       res.redirect('/login')
     }
   })
 })
 router.get('/signup', function (req, res, next) {
-  res.render('user/signup', {signupError:req.session.signupError})
-  req.session.signupError=false
+  res.render('user/signup', { signupError: req.session.signupError })
+  req.session.signupError = false
 })
 router.post('/signup', function (req, res, next) {
   // console.log(req.body);
   userHelper.signUp(req.body).then((response) => {
     console.log(response);
-    if(response){
-    res.redirect('/login')
-  }else{
-    req.session.signupError=true
-    res.redirect('/signup')
-    
-  }
+    if (response) {
+      res.redirect('/login')
+    } else {
+      req.session.signupError = true
+      res.redirect('/signup')
+
+    }
   })
 
 })
 router.get('/logout', function (req, res, next) {
-  req.session.destroy(() => {
-    res.redirect('/login')
-  })
+  // req.session.destroy(() => {
+  req.session.user = null;
+  res.redirect('/login')
+  // })
 })
 module.exports = router;

@@ -3,19 +3,19 @@ var bcrypt = require('bcrypt');
 module.exports = {
     signUp: (data) => {
         return new Promise(async (resolve, reject) => {
-            let response={}
-            let user=await db.get().collection('users').findOne({email:data.email})
-            if(user){
+            let response = {}
+            let user = await db.get().collection('users').findOne({ email: data.email })
+            if (user) {
                 console.log("alread exists");
-                resolve(response.status=false)
+                resolve(response.status = false)
 
-            }else{
-            data.password = await bcrypt.hash(data.password, 10)
-            console.log(data.password);
-            db.get().collection('users').insertOne(data).then((req, res) => {
-                resolve(response.status=true)
-            })
-        }
+            } else {
+                data.password = await bcrypt.hash(data.password, 10)
+                console.log(data.password);
+                db.get().collection('users').insertOne(data).then((req, res) => {
+                    resolve(response.status = true)
+                })
+            }
 
         })
     },

@@ -8,7 +8,7 @@ var adminHelper = require('../helpers/admin-helpers')
 /* GET home page. */
 router.get('/', function (req, res, next) {
     adminHelper.displayUsers().then((allUsers) => {
-        let adminsession = req.session.user
+        let adminsession = req.session.admin
         // console.log(admin);
         // console.log(allUsers);
         if (adminsession) {
@@ -21,10 +21,8 @@ router.get('/', function (req, res, next) {
 
 
 });
-// can i replace by redirecting to user signup(question)
-
 router.get('/add-users', function (req, res, next) {
-    let adminsession = req.session.user
+    let adminsession = req.session.admin
     res.render('admin/add-users', { adduserError: req.session.adduserError, admin: true, adminsession });
     req.session.adduserError = false
 });
@@ -45,7 +43,7 @@ router.post('/add-users', function (req, res, next) {
     })
 })
 router.get('/admin-login', function (req, res, next) {
-    let admin = req.session.user
+    let admin = req.session.admin
     if (admin) {
         res.redirect('/admin')
 
@@ -60,7 +58,7 @@ router.post('/admin-login', function (req, res, next) {
     adminHelper.adminLogin(req.body).then((response) => {
         if (response.status) {
             req.session.loggedIn = true
-            req.session.user = response.user
+            req.session.admin = response.user
             // console.log(req.session.user);
             res.redirect('/admin')
         } else {
@@ -72,7 +70,7 @@ router.post('/admin-login', function (req, res, next) {
 
 })
 router.get('/admin-signup', function (req, res, next) {
-    let adminsession = req.session.user
+    let adminsession = req.session.admin
     res.render('admin/admin-signup', { admin: true, addadminError: req.session.addadminError, adminsession })
     req.session.addadminError = false
 })
@@ -103,29 +101,31 @@ router.get('/delete-user/:email', function (req, res) {
 
 })
 router.get('/edit-user/:email', async (req, res) => {
-    let adminsession = req.session.user
+    let adminsession = req.session.admin
 
     let userMail = req.params.email
     console.log(req.params.email);
     // this user is passed to edit page to set value fields
     let user = await db.get().collection('users').findOne({ email: userMail })
     console.log(user);
-    //provide get method only,post method same as add-users
+
     res.render('admin/edit-user', { user, admin: true, adminsession })
 
 })
-router.post('/edit-user/:email',(req,res)=>{
-    adminHelper.editUser(req.body).then((response)=>{
+router.post('/edit-user/:email', (req, res) => {
+    adminHelper.editUser(req.body).then((response) => {
         res.redirect('/admin')
 
     })
 })
 
 router.get('/admin-logout', (req, res) => {
-    req.session.destroy(() => {
-        res.redirect('/admin/admin-login')
+    // req.session.destroy(() => {
+    req.session.admin = null
+    res.redirect('/admin/admin-login')
 
-    })
+
+    // })
 
 })
 
